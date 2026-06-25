@@ -1,0 +1,72 @@
+<BOUCLE_rubrique_livre(RUBRIQUES){id_rubrique}>
+[(#SET{titre_page,#TITRE|textebrut})]
+<!doctype html>
+<html lang="#LANG">
+<head>
+	<meta charset="#CHARSET">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>[(#GET{titre_page})] - [(#NOM_SITE_SPIP|textebrut)]</title>
+	[<meta name="description" content="(#INTRODUCTION{180}|attribut_html)">]
+	<link rel="canonical" href="#URL_RUBRIQUE">
+	#INSERT_HEAD_CSS
+	#INSERT_HEAD
+</head>
+<body class="page_rubrique page_rubrique_book">
+	<a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
+	<!-- BOUTON CONNEXION -->
+	<INCLURE{fond=inclure/authentification} />
+	<div class="page">
+		<main class="ccn-book" id="ccn-book-rubrique-#ID_RUBRIQUE" data-page="#ENV{page,1}">
+			<header class="ccn-book__header">
+				<p class="ccn-book__kicker">[(#NOM_SITE_SPIP|textebrut)]</p>
+				<h1 class="ccn-book__title">#TITRE</h1>
+				[<div class="ccn-book__intro">(#TEXTE|image_reduire{900,0})</div>]
+			</header>
+
+			<B_articles_livre>
+			<nav class="ccn-book__controls" aria-label="<:ccn_book:navigation_livre:>">
+				<button class="ccn-book__button ccn-book__prev" type="button" aria-controls="ccn-book-pages-#ID_RUBRIQUE">
+					<span aria-hidden="true">&#8592;</span>
+					<:ccn_book:precedent:>
+				</button>
+				<p class="ccn-book__status" aria-live="polite">
+					<span class="ccn-book__current">1</span>
+					<span aria-hidden="true">/</span>
+					<span class="ccn-book__total">#TOTAL_BOUCLE</span>
+				</p>
+				<button class="ccn-book__button ccn-book__next" type="button" aria-controls="ccn-book-pages-#ID_RUBRIQUE">
+					<:ccn_book:suivant:>
+					<span aria-hidden="true">&#8594;</span>
+				</button>
+			</nav>
+
+			<section class="ccn-book__stage" aria-label="<:ccn_book:articles_livre:>">
+				<div class="ccn-book__shadow" aria-hidden="true"></div>
+				<div class="ccn-book__pages" id="ccn-book-pages-#ID_RUBRIQUE">
+					<BOUCLE_articles_livre(ARTICLES){id_rubrique}{par num titre, date}{statut=publie}>
+					<article class="ccn-book__page" data-article="#ID_ARTICLE">
+						<div class="ccn-book__paper">
+							<p class="ccn-book__page-number">#COMPTEUR_BOUCLE</p>
+							<h2 class="ccn-book__article-title">
+								<a href="#URL_ARTICLE">#TITRE</a>
+							</h2>
+							[<p class="ccn-book__date">(#DATE|affdate)</p>]
+							[<figure class="ccn-book__logo">(#LOGO_ARTICLE|image_reduire{760,360})</figure>]
+							[<div class="ccn-book__chapo">(#CHAPO|image_reduire{760,0})</div>]
+							[<div class="ccn-book__text">(#TEXTE|image_reduire{760,0})</div>]
+							[<footer class="ccn-book__ps">(#PS|image_reduire{760,0})</footer>]
+						</div>
+					</article>
+					</BOUCLE_articles_livre>
+				</div>
+			</section>
+			</B_articles_livre>
+			<div class="ccn-book__empty">
+				<p><:ccn_book:aucun_article:></p>
+			</div>
+			<//B_articles_livre>
+		</main>
+	</div>
+</body>
+</html>
+</BOUCLE_rubrique_livre>

@@ -1,0 +1,18 @@
+<paquet
+	prefix="ccn_book"
+	categorie="multimedia"
+	version="1.0.0"
+	etat="test"
+	compatibilite="[4.0.0;5.99.*]"
+	logo="img_pack/ccn-book.svg"
+	documentation="README.md"
+>
+	<nom>CCN Book</nom>
+	<!-- Feuilletage public des articles d'une rubrique marquee par le mot-cle book -->
+	<auteur>Poongaloo</auteur>
+	<licence>GNU/GPL</licence>
+
+	<pipeline nom="styliser" inclure="ccn_book_pipelines.php" />
+	<pipeline nom="insert_head_css" inclure="ccn_book_pipelines.php" />
+	<pipeline nom="jquery_plugins" inclure="ccn_book_pipelines.php" />
+</paquet>
